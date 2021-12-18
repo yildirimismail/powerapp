@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+  powerapp-postgresql:
+    image: postgres:11.5-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=powerapp
+    volumes:
+      - powerapp-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  powerapp-postgres-data:

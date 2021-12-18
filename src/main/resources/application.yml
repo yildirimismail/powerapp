@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/powerapp
+    username: postgres
+    password: 123456
+
+  flyway:
+    enabled: true
+    clean-disabled: true
+
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    generate-ddl: true
+
+server:
+  servlet:
+    context-path: /api
+  port: 8080

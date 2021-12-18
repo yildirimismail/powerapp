@@ -1,0 +1,8 @@
+rootProject.name = 'powerapp'
+include 'api'
+include 'powerapp-api'
+include 'powerapp-domain'
+include 'powerapp-commons'
+include 'powerapp-security'
+include 'powerapp-infrastructure'
+
