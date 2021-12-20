@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://ec2-3-232-160-153.compute-1.amazonaws.com:5432/dbj10igntcjlak
-    username: ipvhfionnwdevh
-    password: 461b662c74a912bb7e3ed517f29057679c4ab18d18b6ce3f1ccc3906f683a24f
+    url: jdbc:postgresql://localhost:5433/powerapp
+    username: postgres
+    password: 123456
 
   flyway:
     enabled: true
