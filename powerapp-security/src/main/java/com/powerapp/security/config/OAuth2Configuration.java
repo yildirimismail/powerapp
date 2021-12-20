@@ -28,6 +28,9 @@ import javax.sql.DataSource;
 @EnableAuthorizationServer
 public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
+	@Value("${check-user-scopes}")
+	private Boolean checkUserScopes;
+
 	@Autowired
 	private DataSource dataSource;
 
@@ -83,6 +86,9 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtAccessTokenConverter())
 				.authenticationManager(authenticationManager).userDetailsService(userDetailsService);
+		if (checkUserScopes)
+			endpoints.requestFactory(requestFactory());
+
 	}
 	
 	
