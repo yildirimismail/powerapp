@@ -1,12 +1,13 @@
 package com.powerapp.security.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -22,30 +23,29 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+import javax.validation.constraints.NotNull;
 
 @Configuration
 @EnableAuthorizationServer
+@RequiredArgsConstructor(onConstructor = @__({@Autowired, @NotNull}))
 public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
 	@Value("${check-user-scopes}")
 	private Boolean checkUserScopes;
+	private final DataSource dataSource;
+	private final PasswordEncoder passwordEncoder;
+	private final UserDetailsService userDetailsService;
+	private final ClientDetailsService clientDetailsService;
+	private final AuthenticationConfiguration authenticationConfiguration;
 
-	@Autowired
-	private DataSource dataSource;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private UserDetailsService userDetailsService;
-
-	@Autowired
-	private ClientDetailsService clientDetailsService;
-
-	@Autowired
-	@Qualifier("authenticationManagerBean")
 	private AuthenticationManager authenticationManager;
+
+	@PostConstruct
+	public void init() throws Exception {
+		this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
+	}
 	
 	@Bean
 	public OAuth2RequestFactory requestFactory() {
@@ -90,34 +90,4 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 			endpoints.requestFactory(requestFactory());
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
