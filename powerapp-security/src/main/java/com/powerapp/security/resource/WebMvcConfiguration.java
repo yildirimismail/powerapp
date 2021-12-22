@@ -1,6 +1,5 @@
 package com.powerapp.security.resource;
 
-import com.powerapp.domain.CustomPrincipal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
