@@ -1,6 +1,6 @@
 package com.powerapp.security.resource;
 
-import com.powerapp.domain.CurrentPrincipal;
+import com.powerapp.domain.CustomPrincipal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,14 +34,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 		return new HandlerMethodArgumentResolver() {
 			@Override
 			public boolean supportsParameter(MethodParameter parameter) {
-				return parameter.getParameterType().equals(CurrentPrincipal.class);
+				return parameter.getParameterType().equals(CustomPrincipal.class);
 			}
 
 			@Override
 			public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                           NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 				try {
-					return (CurrentPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					return (CustomPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				} catch (Exception e) {
 					return null;
 				}
