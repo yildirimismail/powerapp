@@ -141,7 +141,5 @@ public class CustomAccessTokenConverter implements AccessTokenConverter, JwtAcce
 	public void setIncludeGrantType(boolean includeGrantType) {
 		this.includeGrantType = includeGrantType;
 	}
-	
 
-	
 }

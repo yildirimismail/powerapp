@@ -3,6 +3,7 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 buildscript {
     ext {
         springBootVersion = "2.2.2.RELEASE"
+        swaggerVersion = "3.0.0"
     }
 
     repositories {
@@ -62,10 +63,9 @@ allprojects {
         testAnnotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         implementation "org.springframework.boot:spring-boot-starter-web"
-        implementation "io.springfox:springfox-swagger2:3.0.0"
-        implementation "io.springfox:springfox-swagger-ui:3.0.0"
-        implementation 'org.springframework.boot:spring-boot-starter-security:2.3.5.RELEASE'
-        implementation 'org.springframework.cloud:spring-cloud-starter-oauth2:2.2.1.RELEASE'
+        implementation 'io.springfox:springfox-boot-starter:3.0.0'
+        implementation 'org.springframework.boot:spring-boot-starter-security:2.6.1'
+        implementation 'org.springframework.cloud:spring-cloud-starter-oauth2:2.2.5.RELEASE'
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE'
         implementation 'org.springframework.boot:spring-boot-starter-web:2.3.5.RELEASE'
