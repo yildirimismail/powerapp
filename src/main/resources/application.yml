@@ -40,3 +40,6 @@ security:
           -----END PUBLIC KEY-----
 
 check-user-scopes: true
+
+cors:
+  allowedOrigins: http://localhost8080, https://powerapp-client.herokuapp.com
