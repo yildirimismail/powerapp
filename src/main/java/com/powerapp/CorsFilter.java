@@ -1,4 +1,4 @@
-package com.powerapp.security.config;
+package com.powerapp;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
