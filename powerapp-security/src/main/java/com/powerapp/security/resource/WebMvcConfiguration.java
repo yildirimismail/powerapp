@@ -20,9 +20,6 @@ import java.util.List;
 @EnableWebSecurity
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-	@Value("${cors.allowedOrigins}")
-	private String[] allowedOrigins;
-
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		argumentResolvers.add(currentUserHandlerMethodArgumentResolver());
@@ -56,16 +53,5 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 		registry.addResourceHandler("/webjars/**")
 				.addResourceLocations("classpath:/META-INF/resources/webjars/");
-	}
-
-	@Override
-	public void addCorsMappings(CorsRegistry corsRegistry) {
-		corsRegistry.addMapping("/**")
-				.allowedOrigins(allowedOrigins)
-				.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-				.allowedHeaders("*")
-				.allowCredentials(true)
-				.exposedHeaders("Authorization")
-				.maxAge(3600);
 	}
 }
