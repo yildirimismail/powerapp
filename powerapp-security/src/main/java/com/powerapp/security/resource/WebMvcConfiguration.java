@@ -1,5 +1,7 @@
 package com.powerapp.security.resource;
 
+import com.powerapp.domain.CurrentPrincipal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
@@ -19,6 +21,9 @@ import java.util.List;
 @EnableWebSecurity
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
+	@Value("${cors.allowedOrigins}")
+	private String[] allowedOrigins;
+
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		argumentResolvers.add(currentUserHandlerMethodArgumentResolver());
@@ -29,14 +34,14 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 		return new HandlerMethodArgumentResolver() {
 			@Override
 			public boolean supportsParameter(MethodParameter parameter) {
-				return parameter.getParameterType().equals(CustomPrincipal.class);
+				return parameter.getParameterType().equals(CurrentPrincipal.class);
 			}
 
 			@Override
 			public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                           NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 				try {
-					return (CustomPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+					return (CurrentPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				} catch (Exception e) {
 					return null;
 				}
@@ -57,7 +62,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry corsRegistry) {
 		corsRegistry.addMapping("/**")
-				.allowedOrigins("*")
+				.allowedOrigins(allowedOrigins)
 				.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
 				.allowedHeaders("*")
 				.allowCredentials(true)
